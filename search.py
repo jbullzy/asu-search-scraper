@@ -1,36 +1,49 @@
 import requests, sys, webbrowser, bs4
 from bs4 import BeautifulSoup
-from os import write
+from sys import argv
+
+script, filename, filetwo, = argv
 
 print("searching google")
 res = requests.get('https://google.com/search?q=ASU')
 res.raise_for_status()
 
-# print("printing res variable")
-# print(res)
-
 print("creating soup as a variable")
 soup = bs4.BeautifulSoup(res.text, "html.parser")
+linkelements = soup.select('.r a')
 
-# print("printing soup.a")
-# print(soup.a)
+print("stringing the soup")
+stringsoup = str(soup)
 
-print("printing soup.h3")
-print(soup.h3)
+print(f"We're going to erase {filetwo}")
+print("If you don't want that, hit ctrl-c.")
+print("Otherwise, hit enter")
 
-# print("printing soup.p")
-# print(soup.p)
+input(">>> ")
 
-#print("printing prettified soup to a separate text file")
-# with open('prettified.txt', 'w') as f:
-#    write(print(soup.prettify), file=f)
+print("Opening the file...")
+paper = open(filetwo, 'w')
 
-# print("selecting links from the results")
-# links = soup.select('.r a')
+print("Truncating the file. Seeya.")
+paper.truncate()
 
-# for i in links:
-   # print("-----printing-----")
-    # print(i.text)
-    # break
+print("Writing linkelements...")
+for i in linkelements:
+    paper.write()
 
+print(f"Now we're going to erase {filename}")
+print("If you don't want that, hit ctrl-c.")
+print("Otherwise, hit enter")
 
+input(">>>")
+
+print("opening the file...")
+target = open(filename, 'w')
+
+print("Truncating the file. Seeya.")
+target.truncate()
+
+print("pouring the soup in...")
+target.write(stringsoup)
+
+print("Done. Check and see if it worked")
